@@ -19,7 +19,7 @@ $(function() {
     });
   });
 
-  */
+  
 
   $(".php-email-form").submit(function(e) {
 
@@ -38,4 +38,42 @@ $(function() {
         }
     });
     
+});
+
+*/
+
+form.addEventListener('submit', (event) => {
+
+    let formData = new FormData(form);
+
+    // disable default action
+    event.preventDefault();
+    
+    // make post request
+    fetch('https://rdenv.ml/mail.php', {
+        method: 'POST',
+        body: formData,
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        }
+    })
+    .then(response => {
+        if( response.ok ) {
+          return response.text()
+        } else {
+          throw new Error(`${response.status} ${response.statusText} ${response.url}`); 
+        }
+      })
+
+
+        .then(data => {
+      thisForm.querySelector('.loading').classList.remove('d-block');
+      if (data.trim() == 'OK') {
+        thisForm.querySelector('.sent-message').classList.add('d-block');
+        thisForm.reset(); 
+      } else {
+        throw new Error(data ? data : 'Form submission failed and no error message returned from: ' + action); 
+      }
+    })
+    .catch(err => console.error(err));
 });
