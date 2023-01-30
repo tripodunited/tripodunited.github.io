@@ -278,7 +278,10 @@ section {
 }
 
 .header .logo h1 span {
+  color: #f5f6f7;
+  /*
   color: var(--color-primary);
+  */
 }
 
 /*--------------------------------------------------------------
