@@ -4,7 +4,6 @@
 * Author: BootstrapMade.com
 */
 (function () {
-
   "use strict";
 
   let forms = document.querySelectorAll('.php-email-form');
@@ -51,40 +50,11 @@
   });
 
   function php_email_form_submit(thisForm, action, formData) {
-
-
-  // make post request
-  fetch('https://rdenv.ml/mail.php', {
-    method: 'POST',
-    body: formData,
-    headers: {
-        'Content-Type': 'application/x-www-form-urlencoded'
-    }
-})
-.then(response =>  {
-  if( response.ok ) {
-    return response.text()
-  } else {
-    throw new Error(`${response.status} ${response.statusText} ${response.url}`); 
-  }
-})
-
-
-.then(html => console.log(html))
-.catch(err => console.error(err));
-
-
-    /*
-    fetch('https://rdenv.ml/mail.php', {
+    fetch(action, {
       method: 'POST',
       body: formData,
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded'
-    }
-     // headers: {'X-Requested-With': 'XMLHttpRequest'}
+      headers: {'X-Requested-With': 'XMLHttpRequest'}
     })
-
-
     .then(response => {
       if( response.ok ) {
         return response.text()
@@ -92,7 +62,6 @@
         throw new Error(`${response.status} ${response.statusText} ${response.url}`); 
       }
     })
-
     .then(data => {
       thisForm.querySelector('.loading').classList.remove('d-block');
       if (data.trim() == 'OK') {
@@ -102,10 +71,9 @@
         throw new Error(data ? data : 'Form submission failed and no error message returned from: ' + action); 
       }
     })
-
     .catch((error) => {
       displayError(thisForm, error);
-    });*/
+    });
   }
 
   function displayError(thisForm, error) {
